@@ -1,3 +1,8 @@
+This repository contains the code used for the experiments of the ICML 2019 Paper
+"Adaptive and Safe Bayesian Optimization in High Dimensions via One-Dimensional Subspaces"
+
+The paper can be found here: https://arxiv.org/abs/1902.03229
+
 To reproduce the experiments,
 
 1. Install a Python 3.6 environment
