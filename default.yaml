@@ -1,0 +1,29 @@
+main:
+  log_level_file: INFO
+  log_level_console: INFO
+  modules:
+  - febo.experiment.MultiExperiment
+  - febo.experiment.SimpleExperiment
+  - febo.controller.SequentialController
+  - febo.controller.RepetitionController
+  - febo.controller.SimpleController
+  - febo.controller.PlottingController
+  - febo.algorithms.UCB
+  - febo.algorithms.Algorithm
+  - febo.algorithms.rembo.Rembo
+  - febo.algorithms.rembo.InterleavedRembo
+  - febo.algorithms.spsa.SPSA
+  - febo.algorithms.cmaes.CMAES
+  - febo.algorithms.safeopt.SafeOpt
+  - febo.algorithms.subdomainbo.SubDomainBO
+  - febo.algorithms.subdomainbo.safeopt.SafeOptConfigMixin
+  - febo.algorithms.NelderMead
+  - febo.environment.benchmarks.BenchmarkEnvironment
+  - febo.environment.benchmarks.functions.Gaussian
+  - febo.environment.benchmarks.subspace.AugmentedDimensionMixinConfig
+  - febo.solvers.GridSolver
+  - febo.solvers.ScipySolver
+  - febo.models.gp.GP
+  - febo.solvers.ScipySolver
+  experiment: febo.experiment.simple.SimpleExperiment  # Experiment
+  experiment_dir: runs/

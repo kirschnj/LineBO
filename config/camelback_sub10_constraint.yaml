@@ -1,0 +1,86 @@
+algorithm:
+  noise_model_config: {}
+  noise_model:
+  constraints_model_config: {}
+  constraints_model: febo.models.gp.GP
+  model_config: {}
+  model: febo.models.gp.GP
+
+model:
+  beta: 2
+models.gp:
+  noise_var: 0.04
+  kernels:
+    - - GPy.kern.RBF
+      - variance: 1.0
+        lengthscale: 0.2
+        ARD: false
+  calculate_gradients: true  # Enable/Disable computation of gradient on each update.
+
+
+algorithm.subdomainbo:
+  min_queries_line: 10
+  max_queries_line: 15
+  min_queries_tr: 2*d
+  max_queries_tr: 2*d
+  acquisition: febo.algorithms.subdomainbo.acquisition.ucb
+  plot_every_step: false
+  plot: false
+
+algorithm.rembo:
+  emb_d: 2
+  interleaved_runs: 4
+
+algorithm.nelder_mead:
+  contraction_factor: 0.3
+
+algorithm.safeopt:
+  points_per_dimension: 50
+  ucb: false
+
+controller:
+  best_predicted_every: 1
+  T: 500 # Horizon
+  repetitions: 10
+
+
+environment.benchmark:
+  noise_obs_mode: none  # Can be set to "full", "evaluation" or "hidden".
+  noise_function: 0.2
+  aug_d: 10
+  lower_bound_objective: 0.
+  random_x0: true
+  random_x0_min_value: 0.2
+
+
+experiment.multi:
+  label: febo.labels.algorithm_name
+  multi_controller: febo.controller.multi.RepetitionController
+  iterator:
+  - experiment.simple:algorithm: febo.algorithms.SafeRandomLineBO
+  - experiment.simple:algorithm: febo.algorithms.SafeCoordinateLineBO
+  - experiment.simple:algorithm: febo.algorithms.SafeAscentLineBO
+  - experiment.simple:algorithm: febo.algorithms.safeopt.SwarmSafeOpt
+  fixed_environment: false
+
+experiment.simple:
+  algorithm: febo.algorithms.Random
+  environment: febo.environment.benchmarks.subspace.AugmentedCamelback
+  controller: febo.controller.simple.SimpleController
+
+
+solver.grid:
+  points_per_dimension: 300
+solver.scipy:
+  convergence_warnings: true
+  sync_restarts: true
+  num_processes: 1
+  num_restart: 50
+  lbfgs_maxfun: 1000
+  lbfgs_use_gradients: false
+
+
+main:
+  log_level_file: INFO
+  log_level_console: INFO
+  experiment: febo.experiment.MultiExperiment  # Experiment
