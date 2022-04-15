@@ -7,7 +7,7 @@ To reproduce the experiments,
 
 1. Install a Python 3.6 environment
 2. Install the package with "pip install -e ."
-3. pip install git+https://github.com/automl/HPOlib2 
+3. pip install git+https://github.com/automl/HPOlib1.5
 4. pip install git+https://github.com/befelix/SafeOpt.git
 
 
